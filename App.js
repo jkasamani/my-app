@@ -1,20 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Map from "./app/components/Map";
-import AppContacts from './app/components/AppContacts';
-import CurrentLocation from './app/components/CurrentLocation';
-import Welcome from './app/components/Welcome';
-import AppButton from "./app/components/AppButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { Text } from "react-native";
 
 export default function App() {
-  return <AppButton />;
-}
+  const demo = async () => {
+    try {
+      await AsyncStorage.setItem("person", JSON.stringify({ id: 1 }));
+      const value = await AsyncStorage.getItem("person");
+      const person = JSON.parse(value);
+      console.log(person);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+  demo();
+
+  return <Text>come home quickly</Text>;
+}
